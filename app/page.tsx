@@ -19,8 +19,8 @@ import {
 } from 'lucide-react'
 
 const wedding = {
-  bride: 'Praise Jose',
-  groom: 'Lithiya Scaria',
+  bride: 'Dr. Praise Jose',
+  groom: 'Dr. Lithiya Scaria',
   date: '30 November 2026',
   shortDate: '30.11.2026',
   isoDate: '2026-11-30T10:30:00+05:30',
@@ -94,6 +94,7 @@ export default function Page() {
       </header>
 
       <section id="home" className="hero section-shell">
+        <div className="hero-botanical botanical-one" aria-hidden="true">❧</div><div className="hero-botanical botanical-two" aria-hidden="true">❧</div>
         <div className="hero-copy"><p className="eyebrow">With the blessings of our beloved parents</p><div className="monogram">P <Heart size={18} fill="currentColor" /> L</div><p className="script">Together with their families</p><h1>{wedding.bride}<em>&amp;</em>{wedding.groom}</h1><p className="hero-message">{wedding.message}</p><div className="hero-date"><span>{wedding.shortDate}</span><span>•</span><span>{wedding.location}</span></div><a className="scroll-cue" href="#story"><ArrowDown /> Explore our story</a></div>
         <div className="hero-image"><img src={photos[0].src} alt={photos[0].alt} /><div className="image-frame" /></div>
       </section>
@@ -115,5 +116,13 @@ export default function Page() {
 }
 
 function Opening({ onOpen }: { onOpen: () => void }) {
-  return <main className="opening"><div className="opening-flower flower-left">❧</div><div className="opening-flower flower-right">❧</div><div className="invitation-card"><p className="eyebrow">The wedding celebration of</p><div className="opening-monogram">P <Heart size={18} fill="currentColor" /> L</div><h1>Praise <em>&amp;</em> Lithiya</h1><div className="ornament">◇</div><p className="opening-date">30 · 11 · 2026</p><p className="opening-location">Our Lady of Lourdes Basilica<br />Chemperi</p><button className="open-button" onClick={onOpen}>Open invitation <ArrowDown /></button></div></main>
+  const [isOpening, setIsOpening] = useState(false)
+
+  const handleOpen = () => {
+    if (isOpening) return
+    setIsOpening(true)
+    onOpen()
+  }
+
+  return <main className="opening"><div className="opening-flower flower-left">❧</div><div className="opening-flower flower-right">❧</div><div className="invitation-card"><p className="eyebrow">The wedding celebration of</p><div className="opening-monogram">P <Heart size={18} fill="currentColor" /> L</div><h1>Praise <em>&amp;</em> Lithiya</h1><div className="ornament">◇</div><p className="opening-date">30 · 11 · 2026</p><p className="opening-location">Our Lady of Lourdes Basilica<br />Chemperi</p><button className="open-button" onClick={handleOpen} disabled={isOpening} aria-busy={isOpening}>{isOpening ? 'Opening invitation' : 'Open invitation'} <ArrowDown /></button></div></main>
 }
