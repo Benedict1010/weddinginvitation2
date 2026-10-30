@@ -62,16 +62,17 @@ export default function Page() {
   const [opened, setOpened] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   useEffect(() => {
-    if (!opened || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!opened) return
 
     const pixelsPerTick = 0.23
     const autoScroll = window.setInterval(() => {
-      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1
+      const scrollRoot = document.scrollingElement || document.documentElement
+      const atEnd = window.innerHeight + scrollRoot.scrollTop >= scrollRoot.scrollHeight - 1
       if (atEnd) {
         window.clearInterval(autoScroll)
         return
       }
-      window.scrollBy(0, pixelsPerTick)
+      scrollRoot.scrollTop += pixelsPerTick
     }, 16)
 
     return () => window.clearInterval(autoScroll)
