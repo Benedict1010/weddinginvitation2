@@ -9,9 +9,6 @@ import {
   Heart,
   MapPin,
   Menu,
-  Music2,
-  Pause,
-  Play,
   Quote,
   Sparkles,
   X,
@@ -64,14 +61,20 @@ function Countdown() {
 export default function Page() {
   const [opened, setOpened] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [playing, setPlaying] = useState(false)
-
   useEffect(() => {
-    if (!opened) return
-    const autoScroll = window.setTimeout(() => {
-      document.querySelector('#story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 5200)
-    return () => window.clearTimeout(autoScroll)
+    if (!opened || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const pixelsPerTick = 0.23
+    const autoScroll = window.setInterval(() => {
+      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1
+      if (atEnd) {
+        window.clearInterval(autoScroll)
+        return
+      }
+      window.scrollBy(0, pixelsPerTick)
+    }, 16)
+
+    return () => window.clearInterval(autoScroll)
   }, [opened])
 
   if (!opened) return <Opening onOpen={() => setOpened(true)} />
@@ -84,7 +87,6 @@ export default function Page() {
         <nav className={menuOpen ? 'nav-links open' : 'nav-links'}>
           {['home', 'story', 'events', 'venue'].map((item) => <a key={item} href={`#${item}`} onClick={() => setMenuOpen(false)}>{item === 'story' ? 'Our Story' : item === 'events' ? 'Wedding Details' : item[0].toUpperCase() + item.slice(1)}</a>)}
         </nav>
-        <button className="music-button" onClick={() => setPlaying(!playing)} aria-label={playing ? 'Pause music' : 'Play music'}>{playing ? <Pause /> : <Music2 />}<span>{playing ? 'Playing' : 'Music'}</span></button>
       </header>
 
       <section id="home" className="hero section-shell">
