@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   ArrowDown,
   CalendarDays,
-  ChevronLeft,
   ChevronRight,
   Clock3,
   Heart,
@@ -65,20 +64,15 @@ function Countdown() {
 export default function Page() {
   const [opened, setOpened] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [lightbox, setLightbox] = useState<number | null>(null)
   const [playing, setPlaying] = useState(false)
 
   useEffect(() => {
-    document.body.style.overflow = lightbox !== null ? 'hidden' : ''
-    const onKey = (event: KeyboardEvent) => {
-      if (lightbox === null) return
-      if (event.key === 'Escape') setLightbox(null)
-      if (event.key === 'ArrowRight') setLightbox((lightbox + 1) % photos.length)
-      if (event.key === 'ArrowLeft') setLightbox((lightbox - 1 + photos.length) % photos.length)
-    }
-    window.addEventListener('keydown', onKey)
-    return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey) }
-  }, [lightbox])
+    if (!opened) return
+    const autoScroll = window.setTimeout(() => {
+      document.querySelector('#story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 5200)
+    return () => window.clearTimeout(autoScroll)
+  }, [opened])
 
   if (!opened) return <Opening onOpen={() => setOpened(true)} />
 
@@ -88,7 +82,7 @@ export default function Page() {
         <a href="#home" className="brand" onClick={() => setMenuOpen(false)}><span>P</span><Heart size={12} fill="currentColor" /><span>L</span></a>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>
         <nav className={menuOpen ? 'nav-links open' : 'nav-links'}>
-          {['home', 'story', 'events', 'venue', 'gallery'].map((item) => <a key={item} href={`#${item}`} onClick={() => setMenuOpen(false)}>{item === 'story' ? 'Our Story' : item === 'events' ? 'Wedding Details' : item[0].toUpperCase() + item.slice(1)}</a>)}
+          {['home', 'story', 'events', 'venue'].map((item) => <a key={item} href={`#${item}`} onClick={() => setMenuOpen(false)}>{item === 'story' ? 'Our Story' : item === 'events' ? 'Wedding Details' : item[0].toUpperCase() + item.slice(1)}</a>)}
         </nav>
         <button className="music-button" onClick={() => setPlaying(!playing)} aria-label={playing ? 'Pause music' : 'Play music'}>{playing ? <Pause /> : <Music2 />}<span>{playing ? 'Playing' : 'Music'}</span></button>
       </header>
@@ -107,10 +101,8 @@ export default function Page() {
 
       <section id="venue" className="venue section-shell"><div className="venue-copy"><p className="eyebrow">Where we say “I do”</p><h2>Our Lady of Lourdes Basilica</h2><p className="venue-place">Chemperi, Kerala</p><p>Our ceremony will be held at this beautiful, beloved place. We would be honored to have you share this sacred moment with us.</p><a className="gold-button" href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Lourdes+Basilica+Chemperi" target="_blank" rel="noreferrer"><MapPin /> Get directions</a></div><div className="venue-image"><img src={photos[4].src} alt="Floral wedding tables prepared for a celebration" /></div></section>
 
-      <section id="gallery" className="gallery section-shell"><div className="section-heading"><p className="eyebrow">A glimpse of our love</p><h2>Gallery</h2><p>Some moments we’ll carry with us forever.</p></div><div className="gallery-grid">{photos.map((photo, index) => <button key={photo.src} className={`gallery-item item-${index + 1}`} onClick={() => setLightbox(index)} aria-label={`Open ${photo.caption}`}><img src={photo.src} alt={photo.alt} /><span>{photo.caption}</span></button>)}</div></section>
-
       <footer><div className="footer-mark">P <Heart size={14} fill="currentColor" /> L</div><p>With love, Praise &amp; Lithiya</p><small>30 November 2026 · Chemperi</small></footer>
-      {lightbox !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photo gallery" onClick={() => setLightbox(null)}><button className="lightbox-close" onClick={() => setLightbox(null)} aria-label="Close gallery"><X /></button><button className="lightbox-arrow left" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox - 1 + photos.length) % photos.length) }} aria-label="Previous photo"><ChevronLeft /></button><img src={photos[lightbox].src} alt={photos[lightbox].alt} onClick={(event) => event.stopPropagation()} /><button className="lightbox-arrow right" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox + 1) % photos.length) }} aria-label="Next photo"><ChevronRight /></button><p>{photos[lightbox].caption}</p></div>}
+
     </main>
   )
 }
