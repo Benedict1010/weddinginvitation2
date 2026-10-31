@@ -75,7 +75,14 @@ export default function Page() {
       scrollRoot.scrollTop += pixelsPerTick
     }, 16)
 
-    return () => window.clearInterval(autoScroll)
+    const stopAutoScroll = () => window.clearInterval(autoScroll)
+    const interactionEvents: Array<keyof WindowEventMap> = ['wheel', 'touchstart', 'pointerdown', 'keydown']
+    interactionEvents.forEach((event) => window.addEventListener(event, stopAutoScroll, { once: true }))
+
+    return () => {
+      window.clearInterval(autoScroll)
+      interactionEvents.forEach((event) => window.removeEventListener(event, stopAutoScroll))
+    }
   }, [opened])
 
   if (!opened) return <Opening onOpen={() => setOpened(true)} />
