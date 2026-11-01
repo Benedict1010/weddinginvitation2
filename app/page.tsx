@@ -38,8 +38,8 @@ const story = [
 ]
 
 const events = [
-  { name: 'Wedding Ceremony', date: 'Monday, 30 November 2026', time: '10:30 AM', place: 'Our Lady of Lourdes Basilica', address: 'Chemperi, Kerala', icon: Sparkles },
-  { name: 'Reception', date: 'Monday, 30 November 2026', time: '12:30 PM onwards', place: 'Thundaparambil House', address: 'Chemperi, Kerala', icon: Heart },
+  { name: 'Wedding Ceremony', date: 'Monday, 30 November 2026', time: '10:30 AM', place: 'Our Lady of Lourdes Basilica', address: 'Chemperi, Kerala', url: 'https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Lourdes+Basilica+Chemperi', icon: Sparkles },
+  { name: 'Reception', date: 'Monday, 30 November 2026', time: '12:30 PM onwards', place: 'Mother Theresa Auditorium', address: 'Google Maps', url: 'https://www.google.com/maps/search/?api=1&query=Mother+Theresa+Auditorium', icon: Heart },
 ]
 
 function Countdown() {
@@ -94,9 +94,9 @@ export default function Page() {
 
       <section className="ceremony-info" aria-labelledby="ceremony-info-title"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-wZPdR8jVVdtkOBjuwr0kjqpt7z0oc6.png" alt="Ceremony information for Dr. Praise Jose and Dr. Lithiya Scaria" /><h2 id="ceremony-info-title" className="sr-only">Ceremony info</h2></section>
 
-      <section id="events" className="events section-shell"><div className="section-heading"><p className="eyebrow">Join us as we celebrate</p><h2>Wedding Details</h2><p>Two moments, one beautiful beginning.</p></div><div className="event-grid">{events.map((event) => { const Icon = event.icon; return <article className="event-card" key={event.name}><Icon className="event-icon" /><p className="eyebrow">{event.name}</p><h3>{event.date}</h3><div className="event-meta"><span><Clock3 />{event.time}</span><span><MapPin />{event.place}</span></div><p>{event.address}</p><a href="#venue">View venue details <ChevronRight /></a></article> })}</div></section>
+      <section id="events" className="events section-shell"><div className="section-heading"><p className="eyebrow">Join us as we celebrate</p><p>Two moments, one beautiful beginning.</p></div><div className="event-grid">{events.map((event) => { const Icon = event.icon; return <article className="event-card" key={event.name}><Icon className="event-icon" /><p className="eyebrow">{event.name}</p><h3>{event.date}</h3><div className="event-meta"><span><Clock3 />{event.time}</span><span><MapPin />{event.place}</span></div><p>{event.address}</p><a href={event.url} target="_blank" rel="noreferrer">View venue details <ChevronRight /></a></article> })}</div></section>
 
-      <section id="venue" className="venue section-shell"><div className="venue-copy"><p className="eyebrow">Location</p><h2>Our Lady of Lourdes Basilica</h2><p className="venue-place">Chemperi, Kerala</p><p>We would be honored to have you share this sacred moment with us.</p><a className="gold-button" href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Lourdes+Basilica+Chemperi" target="_blank" rel="noreferrer"><MapPin /> Get directions</a></div></section>
+      <section id="venue" className="venue section-shell"><div className="venue-copy"><p className="eyebrow">Location</p><h2>Our Lady of Lourdes Basilica</h2><p className="venue-place">Chemperi, Kerala</p><p>We would be honored to have you share this sacred moment with us.</p><div className="venue-links"><a className="gold-button" href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Lourdes+Basilica+Chemperi" target="_blank" rel="noreferrer"><MapPin /> Ceremony map</a><a className="gold-button" href="https://www.google.com/maps/search/?api=1&query=Mother+Theresa+Auditorium" target="_blank" rel="noreferrer"><MapPin /> Reception map</a></div></div></section>
 
       <footer><div className="footer-mark">P <Heart size={14} fill="currentColor" /> L</div><p>With love, Praise &amp; Lithiya</p><small>30 November 2026 · Chemperi</small></footer>
 
