@@ -92,6 +92,8 @@ export default function Page() {
 
       <section className="countdown-band"><p>Counting down to our day</p><Countdown /></section>
 
+      <section className="ceremony-info" aria-labelledby="ceremony-info-title"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-wZPdR8jVVdtkOBjuwr0kjqpt7z0oc6.png" alt="Ceremony information for Dr. Praise Jose and Dr. Lithiya Scaria" /><h2 id="ceremony-info-title" className="sr-only">Ceremony info</h2></section>
+
       <section id="events" className="events section-shell"><div className="section-heading"><p className="eyebrow">Join us as we celebrate</p><h2>Wedding Details</h2><p>Two moments, one beautiful beginning.</p></div><div className="event-grid">{events.map((event) => { const Icon = event.icon; return <article className="event-card" key={event.name}><Icon className="event-icon" /><p className="eyebrow">{event.name}</p><h3>{event.date}</h3><div className="event-meta"><span><Clock3 />{event.time}</span><span><MapPin />{event.place}</span></div><p>{event.address}</p><a href="#venue">View venue details <ChevronRight /></a></article> })}</div></section>
 
       <section id="venue" className="venue section-shell"><div className="venue-copy"><p className="eyebrow">Location</p><h2>Our Lady of Lourdes Basilica</h2><p className="venue-place">Chemperi, Kerala</p><p>We would be honored to have you share this sacred moment with us.</p><a className="gold-button" href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Lourdes+Basilica+Chemperi" target="_blank" rel="noreferrer"><MapPin /> Get directions</a></div></section>
