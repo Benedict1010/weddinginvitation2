@@ -7,6 +7,7 @@ import {
   ChevronRight,
   Clock3,
   Heart,
+  MapPin,
   Sparkles,
 } from 'lucide-react'
 
