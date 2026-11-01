@@ -8,10 +8,7 @@ import {
   Clock3,
   Heart,
   MapPin,
-  Menu,
-  Quote,
   Sparkles,
-  X,
 } from 'lucide-react'
 
 const wedding = {
@@ -60,7 +57,6 @@ function Countdown() {
 
 export default function Page() {
   const [opened, setOpened] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
   useEffect(() => {
     if (!opened) return
 
@@ -89,27 +85,16 @@ export default function Page() {
 
   return (
     <main className="wedding-site">
-      <header className="site-nav">
-        <a href="#home" className="brand" onClick={() => setMenuOpen(false)}><span>P</span><Heart size={12} fill="currentColor" /><span>L</span></a>
-        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>
-        <nav className={menuOpen ? 'nav-links open' : 'nav-links'}>
-          {['home', 'story', 'events', 'venue'].map((item) => <a key={item} href={`#${item}`} onClick={() => setMenuOpen(false)}>{item === 'story' ? 'Our Story' : item === 'events' ? 'Wedding Details' : item[0].toUpperCase() + item.slice(1)}</a>)}
-        </nav>
-      </header>
-
       <section id="home" className="hero section-shell">
         <div className="hero-botanical botanical-one" aria-hidden="true">❧</div><div className="hero-botanical botanical-two" aria-hidden="true">❧</div>
-        <div className="hero-copy"><p className="eyebrow">With the blessings of our beloved parents</p><div className="monogram">P <Heart size={18} fill="currentColor" /> L</div><p className="script">Together with their families</p><h1>{wedding.bride}<em>&amp;</em>{wedding.groom}</h1><p className="hero-message">{wedding.message}</p><div className="hero-date"><span>{wedding.shortDate}</span><span>•</span><span>{wedding.location}</span></div><a className="scroll-cue" href="#story"><ArrowDown /> Explore our story</a></div>
-        <div className="hero-image"><img src={photos[0].src} alt={photos[0].alt} /><div className="image-frame" /></div>
+        <div className="hero-copy"><p className="eyebrow">With the blessings of our beloved parents</p><div className="monogram">P <Heart size={18} fill="currentColor" /> L</div><p className="script">Together with their families</p><img className="couple-name-art" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-quTzy1kICjrT75UbFzUzr8WsT2sUN4.png" alt="Praise and Lithiya" /><p className="hero-message">{wedding.message}</p><div className="hero-date"><span>{wedding.shortDate}</span><span>•</span><span>{wedding.location}</span></div></div>
       </section>
 
       <section className="countdown-band"><p>Counting down to our day</p><Countdown /></section>
 
-      <section id="story" className="story section-shell"><div className="section-heading"><p className="eyebrow">A little bit of forever</p><h2>Our Story</h2><p>Every love story is beautiful, but ours is our favorite.</p></div><div className="story-intro"><div className="story-photo"><img src={photos[2].src} alt={photos[2].alt} /></div><div><Quote className="quote-icon" /><p>We met in the most unexpected way and instantly felt a connection. Now, we’re so excited to celebrate our love with you.</p><span className="signature">Praise &amp; Lithiya</span></div></div><div className="timeline">{story.map(([title, text], index) => <article key={title} className="timeline-item"><span className="timeline-number">0{index + 1}</span><div><p className="eyebrow">Chapter {index + 1}</p><h3>{title}</h3><p>{text}</p></div></article>)}</div></section>
-
       <section id="events" className="events section-shell"><div className="section-heading"><p className="eyebrow">Join us as we celebrate</p><h2>Wedding Details</h2><p>Two moments, one beautiful beginning.</p></div><div className="event-grid">{events.map((event) => { const Icon = event.icon; return <article className="event-card" key={event.name}><Icon className="event-icon" /><p className="eyebrow">{event.name}</p><h3>{event.date}</h3><div className="event-meta"><span><Clock3 />{event.time}</span><span><MapPin />{event.place}</span></div><p>{event.address}</p><a href="#venue">View venue details <ChevronRight /></a></article> })}</div></section>
 
-      <section id="venue" className="venue section-shell"><div className="venue-copy"><p className="eyebrow">Where we say “I do”</p><h2>Our Lady of Lourdes Basilica</h2><p className="venue-place">Chemperi, Kerala</p><p>Our ceremony will be held at this beautiful, beloved place. We would be honored to have you share this sacred moment with us.</p><a className="gold-button" href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Lourdes+Basilica+Chemperi" target="_blank" rel="noreferrer"><MapPin /> Get directions</a></div><div className="venue-image"><img src={photos[4].src} alt="Floral wedding tables prepared for a celebration" /></div></section>
+      <section id="venue" className="venue section-shell"><div className="venue-copy"><p className="eyebrow">Location</p><h2>Our Lady of Lourdes Basilica</h2><p className="venue-place">Chemperi, Kerala</p><p>We would be honored to have you share this sacred moment with us.</p><a className="gold-button" href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Lourdes+Basilica+Chemperi" target="_blank" rel="noreferrer"><MapPin /> Get directions</a></div></section>
 
       <footer><div className="footer-mark">P <Heart size={14} fill="currentColor" /> L</div><p>With love, Praise &amp; Lithiya</p><small>30 November 2026 · Chemperi</small></footer>
 
