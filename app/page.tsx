@@ -87,7 +87,7 @@ export default function Page() {
     <main className="wedding-site">
       <section id="home" className="hero section-shell">
         <div className="hero-botanical botanical-one" aria-hidden="true">❧</div><div className="hero-botanical botanical-two" aria-hidden="true">❧</div>
-        <div className="hero-copy"><p className="eyebrow">With the blessings of our beloved parents</p><div className="monogram">P <Heart size={18} fill="currentColor" /> L</div><p className="script">Together with their families</p><img className="couple-name-art" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-quTzy1kICjrT75UbFzUzr8WsT2sUN4.png" alt="Praise and Lithiya" /><p className="hero-message">{wedding.message}</p><div className="hero-date"><span>{wedding.shortDate}</span><span>•</span><span>{wedding.location}</span></div></div>
+        <div className="hero-copy"><p className="eyebrow">With the blessings of our beloved parents</p><div className="monogram">P <Heart size={18} fill="currentColor" /> L</div><p className="script">Together with their families</p><img className="couple-name-art" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-quTzy1kICjrT75UbFzUzr8WsT2sUN4.png" alt="Praise and Lithiya" /><p className="hero-message">{wedding.message}</p><div className="hero-date"><span>{wedding.shortDate}</span><span>•</span><span>{wedding.location}</span></div><a className="music-link" href="https://share.google/gT19Hd56P9d0uyFiE" target="_blank" rel="noreferrer">Play our music</a></div>
       </section>
 
       <section className="countdown-band"><p>Counting down to our day</p><Countdown /></section>
