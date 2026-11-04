@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   ArrowDown,
   CalendarDays,
@@ -58,6 +58,12 @@ function Countdown() {
 export default function Page() {
   const [opened, setOpened] = useState(false)
   const [musicOn, setMusicOn] = useState(true)
+  const musicIframeRef = useRef<HTMLIFrameElement>(null)
+  useEffect(() => { 
+    if (opened && musicOn) {
+      musicIframeRef.current?.contentWindow?.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), 'https://www.youtube.com')
+    }
+  }, [opened, musicOn])
   useEffect(() => {
     if (!opened) return
 
@@ -91,7 +97,7 @@ export default function Page() {
         <div className="hero-copy"><p className="eyebrow">With the blessings of our beloved parents</p><div className="monogram">P <Heart size={18} fill="currentColor" /> L</div><p className="script">Together with their families</p><img className="couple-name-art" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-quTzy1kICjrT75UbFzUzr8WsT2sUN4.png" alt="Praise and Lithiya" /><p className="hero-message">{wedding.message}</p><div className="hero-date"><span>{wedding.shortDate}</span><span>•</span><span>{wedding.location}</span></div></div>
       </section>
 
-      {musicOn && <iframe className="music-player" src="https://www.youtube.com/embed/f5-IY_Ja1RM?autoplay=1&loop=1&playlist=f5-IY_Ja1RM&controls=0&playsinline=1" title="Wedding music" allow="autoplay; encrypted-media" loading="eager" />}
+      {musicOn && <iframe ref={musicIframeRef} className="music-player" src="https://www.youtube.com/embed/f5-IY_Ja1RM?enablejsapi=1&autoplay=1&loop=1&playlist=f5-IY_Ja1RM&controls=0&playsinline=1" title="Wedding music" allow="autoplay; encrypted-media" loading="eager" onLoad={() => musicIframeRef.current?.contentWindow?.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), 'https://www.youtube.com')} />}
       <button className="music-toggle" type="button" onClick={() => setMusicOn((current) => !current)} aria-pressed={musicOn}>{musicOn ? 'Music on' : 'Music off'}</button>
 
       <section className="countdown-band"><p>Counting down to our day</p><Countdown /></section>
