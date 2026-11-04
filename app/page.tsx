@@ -61,7 +61,7 @@ export default function Page() {
   useEffect(() => {
     if (!opened) return
 
-    const pixelsPerTick = 0.23
+    const pixelsPerTick = 0.3
     const autoScroll = window.setInterval(() => {
       const scrollRoot = document.scrollingElement || document.documentElement
       const atEnd = window.innerHeight + scrollRoot.scrollTop >= scrollRoot.scrollHeight - 1
